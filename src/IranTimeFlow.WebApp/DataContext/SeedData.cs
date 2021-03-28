@@ -8,7 +8,7 @@ namespace IranTimeFlow.WebApp.DataContext
     {
         public static async Task SeedDefaultUser(UserManager<IdentityUser> userManager)
         {
-            if (!await userManager.Users.AnyAsync()) return;
+            if (await userManager.Users.AnyAsync()) return;
 
             var user = new IdentityUser
             {

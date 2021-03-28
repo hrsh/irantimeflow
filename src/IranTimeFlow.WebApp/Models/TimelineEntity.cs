@@ -8,6 +8,8 @@ namespace IranTimeFlow.WebApp.Models
     {
         public int Id { get; set; }
 
+        public string UniqueId { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }
@@ -19,6 +21,10 @@ namespace IranTimeFlow.WebApp.Models
         public int Month { get; set; }
 
         public string Tags { get; set; }
+
+        public bool Approved { get; set; }
+
+        public int ViewCount { get; set; }
     }
 
     public class TimelineEntityConfig : IEntityTypeConfiguration<TimelineEntity>

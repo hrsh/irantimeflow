@@ -26,7 +26,8 @@ namespace IranTimeFlow.WebApp
                 {
                     cfg.RegisterValidatorsFromAssemblyContaining(typeof(ServiceInstaller));
                     cfg.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                });
+                })
+                .AddRazorRuntimeCompilation();
         }
 
         private static void AddMapper(this IServiceCollection services)
