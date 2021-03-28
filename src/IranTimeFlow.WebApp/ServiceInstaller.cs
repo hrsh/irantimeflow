@@ -15,19 +15,21 @@ namespace IranTimeFlow.WebApp
             services.AddMapper();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddFluentValidatoreCore();
+            services.AddControllers();
             services.AddScoped<IRepository, Repository>();
             return services;
         }
 
         private static void AddFluentValidatoreCore(this IServiceCollection services)
         {
-            services.AddRazorPages()
-                .AddFluentValidation(cfg =>
-                {
-                    cfg.RegisterValidatorsFromAssemblyContaining(typeof(ServiceInstaller));
-                    cfg.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                })
-                .AddRazorRuntimeCompilation();
+            services
+            .AddRazorPages()
+            .AddFluentValidation(cfg =>
+            {
+                cfg.RegisterValidatorsFromAssemblyContaining(typeof(ServiceInstaller));
+                cfg.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            })
+            .AddRazorRuntimeCompilation();
         }
 
         private static void AddMapper(this IServiceCollection services)

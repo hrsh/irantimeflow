@@ -1,0 +1,17 @@
+﻿@model TimelineListViewModel
+
+@if (Model != null && Model.Timelines.Any())
+{
+    <div class="card border-0 rtl">
+        <div class="card-body">
+            <div id="content">
+                <ul class="timeline">
+                    @foreach (var t in Model.Timelines)
+                    {
+                        @await Html.PartialAsync("TimelineItem", t)
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}

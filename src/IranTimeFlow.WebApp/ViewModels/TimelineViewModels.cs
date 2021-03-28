@@ -30,4 +30,17 @@ namespace IranTimeFlow.WebApp.ViewModels
     {
         public IEnumerable<TimelineViewModel> Timelines { get; set; }
     }
+
+    public class TimelineAddViewModel
+    {
+        public string Title { get; set; }
+
+        public string Content { get; set; }
+
+        public DateTimeOffset RisedOn { get; set; }
+
+        public string Tags { get; set; }
+
+        public bool Approved { get; set; }
+    }
 }

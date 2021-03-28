@@ -1,0 +1,27 @@
+﻿@model TimelineViewModel
+
+<li class="event" data-date="@Model.DateRised">
+    <h3 class="fs-4">@Model.Title</h3>
+    @if (!Model.Approved)
+    {
+        <span class="btn btn-danger btn-sm rounded-pill px-4 mb-4">
+            تردید در درستی
+        </span>
+    }
+    <p class="fs-5 event-body">@Model.Content</p>
+    <div class="d-flex justify-content-between pt-4">
+        <div>
+
+            <a href="#" class="nav-link px-0">@($"{Model.Year}.{Model.Month}")</a>
+        </div>
+        <div>
+            @foreach (var t in Model.Tagline)
+            {
+                <a class="btn btn-primary btn-sm rounded-pill px-3" href="#">
+                    <i class="bi bi-tag-fill"></i>
+                    @t
+                </a>
+            }
+        </div>
+    </div>
+</li>
