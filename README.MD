@@ -1,3 +1,4 @@
 # IranTimeFlow
 
-A simple and light weigth placeholder for most important news and events related to IRAN.
+A simple and lightweight placeholder for most important news and events related to IRAN.
+
