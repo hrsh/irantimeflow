@@ -36,7 +36,8 @@ namespace IranTimeFlow.WebApp
             await context.Database.MigrateAsync();
 
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            await SeedData.SeedDefaultUser(userManager);
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            await SeedData.SeedDefaultUser(userManager, roleManager);
 
             await host.RunAsync();
         }

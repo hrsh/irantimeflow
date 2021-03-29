@@ -1,7 +1,7 @@
 using IranTimeFlow.WebApp.DataContext;
+using IranTimeFlow.WebApp.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,21 +21,7 @@ namespace IranTimeFlow.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(_configuration, _webHostEnvironment.IsDevelopment());
-            services.AddCustomServices();
-            services.AddAuthentication(cfg =>
-            {
-
-            })
-            .AddCookie("Cookie", cfg =>
-            {
-
-            });
-            services.AddIdentity<IdentityUser, IdentityRole>(cfg =>
-            {
-
-            })
-            .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();
+            services.AddCustomServices(opt => opt.WebAppPolicyOptions());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
