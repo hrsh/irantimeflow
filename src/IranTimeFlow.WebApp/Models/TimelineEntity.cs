@@ -24,6 +24,8 @@ namespace IranTimeFlow.WebApp.Models
 
         public bool Approved { get; set; }
 
+        public bool Published { get; set; }
+
         public string Resources { get; set; }
     }
 

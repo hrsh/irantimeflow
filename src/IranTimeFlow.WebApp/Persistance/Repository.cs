@@ -75,6 +75,7 @@ namespace IranTimeFlow.WebApp.Persistance
             var t = await _context
                 .Timelines
                 .AsNoTracking()
+                .Where(a => a.Published)
                 .OrderByDescending(a => a.Id)
                 .Skip(SkipCount())
                 .Take(_pageSize)
