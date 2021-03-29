@@ -33,7 +33,8 @@ body {
 }
 
 .event-body {
-    line-height: 24px
+    line-height: 24px !important;
+    font-size: 13px
 }
 
 @media (max-width: 767px) {
