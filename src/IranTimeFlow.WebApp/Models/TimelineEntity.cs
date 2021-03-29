@@ -24,7 +24,7 @@ namespace IranTimeFlow.WebApp.Models
 
         public bool Approved { get; set; }
 
-        public int ViewCount { get; set; }
+        public string Resources { get; set; }
     }
 
     public class TimelineEntityConfig : IEntityTypeConfiguration<TimelineEntity>

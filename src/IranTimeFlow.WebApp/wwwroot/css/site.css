@@ -5,7 +5,7 @@ body {
     font-family: "Vazir", sans-serif;
     font-size: 13px;
     color: #000;
-    background-color: rgb(253,253,253)
+    /*background-color: rgb(253,253,253)*/
 }
 
 body {
@@ -13,14 +13,14 @@ body {
 }
 
 .card {
-    background-color: rgb(253,253,253)
+    /*background-color: rgb(253,253,253)*/
 }
 
 .timeline {
     border-left: 3px solid #204ecf;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
-    background: rgb(250,250,251);
+    /*background: rgb(250,250,251);*/
     margin: 0 auto;
     letter-spacing: 0.2px;
     position: relative;
@@ -56,7 +56,7 @@ body {
 }
 
 .timeline .event {
-    border-bottom: 1px dashed #e8ebf1;
+    border-bottom: 1px dotted #e8ebf1;
     padding-bottom: 25px;
     margin-bottom: 25px;
     position: relative;
@@ -147,4 +147,10 @@ body {
         right: -30.8px;
         background-color: #204ecf
     }
+}
+
+.my-list {
+    list-style: none;
+    padding: 0;
+    line-height: 12px;
 }

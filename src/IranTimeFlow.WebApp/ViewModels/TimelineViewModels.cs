@@ -21,7 +21,7 @@ namespace IranTimeFlow.WebApp.ViewModels
 
         public bool Approved { get; set; }
 
-        public int ViewCount { get; set; }
+        public List<string> Resources { get; set; }
 
         public string DateRised { get; set; }
     }
@@ -42,5 +42,7 @@ namespace IranTimeFlow.WebApp.ViewModels
         public string Tags { get; set; }
 
         public bool Approved { get; set; }
+
+        public string Resources { get; set; }
     }
 }

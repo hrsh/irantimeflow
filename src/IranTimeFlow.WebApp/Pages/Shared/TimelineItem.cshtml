@@ -8,11 +8,27 @@
             تردید در درستی
         </span>
     }
-    <p class="fs-5 event-body">@Model.Content</p>
+    <p class="fs-5 event-body">
+        <div class="pb-3">@Model.Content</div>
+        <h5>منابع</h5>
+        @if (Model.Resources != null && Model.Resources.Any())
+        {
+            <ul class="my-list">
+                @foreach(var r in Model.Resources)
+                {
+                    <li class="">
+                        <a class="nav-link px-0" dir="ltr" href="@r" target="_blank">
+                            @r
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </p>
     <div class="d-flex justify-content-between pt-4">
         <div>
-
-            <a href="#" class="nav-link px-0">@($"{Model.Year}.{Model.Month}")</a>
+            <a href="#" class="nav-link px-0 text-secondary">@($"{Model.Year}.{Model.Month}")#</a>
         </div>
         <div>
             @foreach (var t in Model.Tagline)

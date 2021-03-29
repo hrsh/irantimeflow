@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IranTimeFlow.WebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210328173610_edit_timeline_table")]
-    partial class edit_timeline_table
+    [Migration("20210329093650_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,9 @@ namespace IranTimeFlow.WebApp.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
+                    b.Property<string>("Resources")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTimeOffset>("RisedOn")
                         .HasColumnType("datetimeoffset");
 
@@ -53,9 +56,6 @@ namespace IranTimeFlow.WebApp.Migrations
 
                     b.Property<string>("UniqueId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");

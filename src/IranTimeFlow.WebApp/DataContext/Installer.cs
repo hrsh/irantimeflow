@@ -10,12 +10,15 @@ namespace IranTimeFlow.WebApp.DataContext
     {
         public static IServiceCollection AddInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            bool logging)
         {
-            services.AddDbContext<AppDbContext>((serviceProvider, optionBuilder) =>
+            services.AddDbContextPool<AppDbContext>((serviceProvider, optionBuilder) =>
             {
                 optionBuilder.UseSqlServer(configuration.GetConnectionString("iran-time-flow"))
-                    .UseLazyLoadingProxies();
+                .UseLazyLoadingProxies()
+                .EnableSensitiveDataLogging(logging)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
                 optionBuilder.AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>());
             });

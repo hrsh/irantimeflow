@@ -20,6 +20,10 @@ namespace IranTimeFlow.WebApp.Profiles
                 .ForMember(
                     a => a.Tagline,
                     m => m.MapFrom(g => g.Tags
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()))
+                .ForMember(
+                    a => a.Resources,
+                    m => m.MapFrom(g => g.Resources
                         .Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()));
 
             CreateMap<TimelineAddViewModel, TimelineEntity>()

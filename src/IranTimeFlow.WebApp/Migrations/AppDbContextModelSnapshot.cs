@@ -36,6 +36,9 @@ namespace IranTimeFlow.WebApp.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
+                    b.Property<string>("Resources")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTimeOffset>("RisedOn")
                         .HasColumnType("datetimeoffset");
 
@@ -51,9 +54,6 @@ namespace IranTimeFlow.WebApp.Migrations
 
                     b.Property<string>("UniqueId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");

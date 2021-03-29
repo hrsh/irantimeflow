@@ -52,12 +52,15 @@ namespace IranTimeFlow.WebApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UniqueId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RisedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Month = table.Column<int>(type: "int", nullable: false),
-                    Tags = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
+                    Tags = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    Approved = table.Column<bool>(type: "bit", nullable: false),
+                    Resources = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
