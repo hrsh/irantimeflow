@@ -58,6 +58,7 @@ namespace IranTimeFlow.WebApp.Areas.SimpleUser.Pages
                     new[] { "\r\n", "\r", "\n" },
                     StringSplitOptions.RemoveEmptyEntries));
             InputModel.RisedOn = DateTimeOffset.UtcNow;
+            InputModel.CreatedByEmail = user.Email;
 
             var model = _mapper.Map<TimelineEntity>(InputModel);
             var command = new AddTimelineCommand(model);

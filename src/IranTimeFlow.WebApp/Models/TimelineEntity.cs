@@ -27,6 +27,8 @@ namespace IranTimeFlow.WebApp.Models
         public bool Published { get; set; }
 
         public string Resources { get; set; }
+
+        public string CreatedByEmail { get; set; }
     }
 
     public class TimelineEntityConfig : IEntityTypeConfiguration<TimelineEntity>

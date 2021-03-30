@@ -18,7 +18,10 @@ namespace IranTimeFlow.WebApp.Persistance
 
         Task CreateAsync(TimelineEntity model, CancellationToken ct = default);
 
-        Task UpdateAsync(TimelineEntity model, CancellationToken ct = default);
+        Task UpdateAsync(
+            TimelineEntity model, 
+            CancellationToken ct = default,
+            params Expression<Func<TimelineEntity, object>>[] updatedProperties);
 
         Task DeleteAsync(int id, CancellationToken ct = default);
 
@@ -26,5 +29,7 @@ namespace IranTimeFlow.WebApp.Persistance
             int pageIndex,
             Expression<Func<TimelineEntity, bool>> predicate,
             CancellationToken ct = default);
+
+        Task<TimelineEditViewModel> GetByIdAsync(string id, CancellationToken ct = default);
     }
 }

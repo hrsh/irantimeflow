@@ -70,6 +70,17 @@ namespace IranTimeFlow.WebApp.Persistance
             return new() { Timelines = t };
         }
 
+        public async Task<TimelineEditViewModel> GetByIdAsync(string id, CancellationToken ct = default)
+        {
+            var t = await _context
+                .Timelines
+                .AsNoTracking()
+                .ProjectTo< TimelineEditViewModel>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(a => a.UniqueId == id, ct);
+
+            return t;
+        }
+
         public async Task<TimelineListViewModel> GetLatestAsync(
             int pageIndex, 
             CancellationToken ct = default)
@@ -108,9 +119,38 @@ namespace IranTimeFlow.WebApp.Persistance
             return result;
         }
 
-        public Task UpdateAsync(TimelineEntity model, CancellationToken ct = default)
+        public async Task UpdateAsync(
+            TimelineEntity model, 
+            CancellationToken ct = default,
+            params Expression<Func<TimelineEntity, object>>[] updatedProperties)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Timelines.FindAsync(new object[] { model.Id }, ct);
+
+            var m = _context.Entry(model);
+            var e = _context.Entry(entity);
+
+            if (updatedProperties.Any())
+                foreach (var property in updatedProperties)
+                {
+                    var currentPropertyName = GetMemberName(property.Body);
+
+                    e.Property(currentPropertyName).CurrentValue =
+                        m.Property(currentPropertyName).CurrentValue;
+
+                    _context.Entry(entity).Property(currentPropertyName).IsModified = true;
+                }
+
+            await _context.SaveChangesAsync(true, ct);
+        }
+
+        private static string GetMemberName(Expression expression)
+        {
+            return expression.NodeType switch
+            {
+                ExpressionType.MemberAccess => ((MemberExpression)expression).Member.Name,
+                ExpressionType.Convert => GetMemberName(((UnaryExpression)expression).Operand),
+                _ => throw new NotSupportedException(expression.NodeType.ToString()),
+            };
         }
     }
 }
