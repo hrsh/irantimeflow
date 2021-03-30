@@ -12,7 +12,7 @@
         @await Html.PartialAsync("_Header")
         @await Html.PartialAsync("TimelineList", Model.TimelineList)
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center pagination-lg">
                 <li class="page-item @np">
                     <a class="page-link" 
                        asp-page="Index"
@@ -26,7 +26,7 @@
                        asp-page="Index"
                        asp-route-pageIndex="@(Model.TimelineList.HasPreviousPage ? (Model.TimelineList.PageIndex - 1) : 1)"
                        asp-route-filter="@Model.Filter"
-                       asp-route-search="@Model.Search">اخبار جدید</a>
+                       asp-route-search="@Model.Search">آخرین اخبار</a>
                 </li>
             </ul>
         </nav>

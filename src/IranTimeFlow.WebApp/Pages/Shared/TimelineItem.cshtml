@@ -1,7 +1,7 @@
 ﻿@model TimelineViewModel
 
-<li class="event" data-date="@Model.DateRised">
-    <h3 class="fs-4">@Model.Title</h3>
+<li class="event" data-date="@Model.DateRised" id="news-@Model.Id">
+    <a href="#news-@Model.Id" class="event-anchor"><h3 class="fs-4">@Model.Title</h3></a>
     @if (!Model.Approved)
     {
         <span class="btn btn-danger btn-sm rounded-pill px-4 mb-4">

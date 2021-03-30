@@ -25,6 +25,8 @@ namespace IranTimeFlow.WebApp.ViewModels
 
         public bool Approved { get; set; }
 
+        public bool Published { get; set; }
+
         public List<string> Resources { get; set; }
 
         public string DateRised { get; set; }
@@ -93,7 +95,11 @@ namespace IranTimeFlow.WebApp.ViewModels
         [StringLength(1024, ErrorMessage = Consts.DefaultLengthRange, MinimumLength = 4)]
         public string Tags { get; set; }
 
+        [Display(Name = "خبر تایید شده")]
         public bool Approved { get; set; }
+
+        [Display(Name = "منتشر شده")]
+        public bool Published { get; set; }
 
         [Display(Name = "لینک منابع")]
         [Required(ErrorMessage = Consts.DefaultRequired)]

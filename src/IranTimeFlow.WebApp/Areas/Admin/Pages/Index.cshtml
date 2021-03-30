@@ -1,4 +1,44 @@
 ﻿@page "/admin/index"
 @model IndexPage
+@using DNTPersianUtils.Core 
+@{ 
+    ViewData["Title"] = "فهرست خبرها";
+}
 
-    <h1>Admin Area Index</h1>
+<h1 class="mb-5">فهرست خبرها</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">خانه</a></li>
+        <li class="breadcrumb-item active" aria-current="page">فهرست خبرها</li>
+    </ol>
+</nav>
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">عنوان</th>
+            <th scope="col">تاریخ</th>
+            <th scope="col">تایید</th>
+            <th scope="col">انتشار</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.TimelineList)
+        {
+            <tr>
+                <th scope="row">@t.Id</th>
+                <td>@t.Title</td>
+                <td>@t.RisedOn.ToPersianYearMonthDay(DateTimeOffsetPart.IranLocalDateTime)</td>
+                <td>@t.Approved</td>
+                <td>@t.Published</td>
+                <td class="text-right">
+                    <a asp-page="Edit"
+                       asp-route-itemId="@t.UniqueId">ویرایش</a> | 
+                    <a asp-page="Delete"
+                       asp-route-itemId="@t.UniqueId">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

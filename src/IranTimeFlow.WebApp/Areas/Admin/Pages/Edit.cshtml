@@ -1,1 +1,73 @@
-﻿
+﻿@page "/admin/timeline/update/{itemId}"
+@model EditPage
+@{
+    ViewData["Title"] = "ویرایش";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-@Model.Alert" role="alert">
+                @Model.Message
+            </div>
+        }
+        <h2 class="mb-5">ویرایش خبر</h2>
+        <form class="row g-3" method="post" id="timeline">
+            <input type="hidden" asp-for="InputModel.Id" />
+            <input type="hidden" asp-for="InputModel.UniqueId" />
+            <div class="col-md-12">
+                <label asp-for="InputModel.Title" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="InputModel.Title" />
+                <span class="text-danger samll" asp-validation-for="InputModel.Title"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="InputModel.Content" class="form-label"></label>
+                <textarea class="form-control" asp-for="InputModel.Content" rows="10"></textarea>
+                <span class="text-danger samll" asp-validation-for="InputModel.Content"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="InputModel.Tags" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="InputModel.Tags">
+                <span class="text-danger samll" asp-validation-for="InputModel.Tags"></span>
+                <span class="form-text">برچسب‌ها را با خط فاصله <kbd>-</kbd> از هم جدا کنید</span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="InputModel.Resources" class="form-label"></label>
+                <textarea class="form-control" asp-for="InputModel.Resources" rows="3" dir="ltr"></textarea>
+                <span class="text-danger samll" asp-validation-for="InputModel.Resources"></span>
+                <span class="form-text">
+                    هر لینک در یک خط
+                </span>
+            </div>
+            <div class="col-md-12">
+                <label asp-for="InputModel.RisedOn" class="form-label"></label>
+                <input type="date" asp-for="InputModel.RisedOn" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" asp-for="InputModel.Approved">
+                    <label class="form-check-label" asp-for="InputModel.Approved">درستی خبر تایید می‌شود؟</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" asp-for="InputModel.Published">
+                    <label class="form-check-label" asp-for="InputModel.Published">بصورت عمومی منتشر شود؟</label>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-12">
+                <button type="button"
+                        id="btnGo"
+                        onclick="CustomSubmit('timeline', this)"
+                        class="btn btn-primary">
+                    ثبت تغییرات
+                </button>
+                <a asp-page="./Index" class="btn btn-link">انصراف</a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>

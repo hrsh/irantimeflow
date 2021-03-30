@@ -1,10 +1,6 @@
 ﻿using IranTimeFlow.WebApp.Persistance;
 using IranTimeFlow.WebApp.ViewModels;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,10 +16,13 @@ namespace IranTimeFlow.WebApp.Queries
         }
 
         public async Task<TimelineEditViewModel> Handle(
-            GetForEditQuery request, 
+            GetForEditQuery request,
             CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var t = await _repository
+                .GetByIdAsync(request.ItemId, ct);
+
+            return t;
         }
     }
 }
