@@ -1,5 +1,8 @@
 ﻿using IranTimeFlow.WebApp.Models;
+using IranTimeFlow.WebApp.PagedModel;
 using IranTimeFlow.WebApp.ViewModels;
+using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,5 +21,10 @@ namespace IranTimeFlow.WebApp.Persistance
         Task UpdateAsync(TimelineEntity model, CancellationToken ct = default);
 
         Task DeleteAsync(int id, CancellationToken ct = default);
+
+        Task<PagedList<TimelineViewModel>> GetLatestPagedAsync(
+            int pageIndex,
+            Expression<Func<TimelineEntity, bool>> predicate,
+            CancellationToken ct = default);
     }
 }

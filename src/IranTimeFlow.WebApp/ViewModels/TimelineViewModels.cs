@@ -9,6 +9,8 @@ namespace IranTimeFlow.WebApp.ViewModels
     {
         public int Id { get; set; }
 
+        public string UniqueId { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }

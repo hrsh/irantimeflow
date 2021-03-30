@@ -41,7 +41,7 @@ namespace IranTimeFlow.WebApp.Controllers
             int? pageIndex,
             CancellationToken ct)
         {
-            var query = new GetLatestQuery(pageIndex ?? 1);
+            var query = new GetLatestQuery(pageIndex ?? 1, a => a.Published);
             var response = await _mediator.Send(query, ct);
             return Ok(response);
         }

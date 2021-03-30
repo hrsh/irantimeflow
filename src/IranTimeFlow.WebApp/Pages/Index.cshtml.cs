@@ -1,4 +1,5 @@
-﻿using IranTimeFlow.WebApp.Queries;
+﻿using IranTimeFlow.WebApp.PagedModel;
+using IranTimeFlow.WebApp.Queries;
 using IranTimeFlow.WebApp.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,29 @@ namespace IranTimeFlow.WebApp.Pages
             _mediator = mediator;
         }
 
-        public TimelineListViewModel TimelineList { get; set; }
+        public PagedList<TimelineViewModel> TimelineList { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? pageIndex, CancellationToken ct)
+        public string Filter { get; set; }
+
+        public string Search { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(
+            int? pageIndex, 
+            string filter,
+            string search,
+            CancellationToken ct)
         {
-            var query = new GetLatestQuery(pageIndex ?? 1);
+            var hasYearVaue = int.TryParse(search, out var year);
+            var searchYear = hasYearVaue && filter == "date" ? year : 1400;
+            var query = filter switch
+            {
+                "" => new GetLatestQuery(pageIndex ?? 1, a => a.Published),
+                "date" => new GetLatestQuery(pageIndex ?? 1, a => a.Published && a.Year == searchYear),
+                "tag" => new GetLatestQuery(pageIndex ?? 1, a => a.Published && a.Tags.Contains(search)),
+                _ => new GetLatestQuery(pageIndex ?? 1, a => a.Published)
+            };
+            Filter = filter;
+            Search = search;
             TimelineList = await _mediator.Send(query, ct);
             return Page();
         }

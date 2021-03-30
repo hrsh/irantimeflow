@@ -8,13 +8,36 @@
             تردید در درستی
         </span>
     }
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole(IranTimeFlow.WebApp.Helpers.RoleNames.Admin))
+        {
+<div>
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <a asp-page="Edit"
+           asp-area="Admin"
+           asp-route-itemId="@Model.UniqueId"
+           class="btn btn-primary">
+            <i class="bi bi-pencil-fill"></i>
+        </a>
+        <a asp-page="Delete"
+           asp-area="Admin"
+           asp-route-itemId="@Model.UniqueId"
+           class="btn btn-danger">
+            <i class="bi bi-trash"></i>
+        </a>
+    </div>
+
+</div>
+        }
+    }
     <p class="fs-5">
         <div class="pb-3 event-body">@Model.Content</div>
         <h5>منابع</h5>
         @if (Model.Resources != null && Model.Resources.Any())
         {
             <ul class="my-list">
-                @foreach(var r in Model.Resources)
+                @foreach (var r in Model.Resources)
                 {
                     <li class="">
                         <a class="nav-link px-0" dir="ltr" href="@r" target="_blank">
@@ -28,12 +51,18 @@
     </p>
     <div class="d-flex justify-content-between pt-4">
         <div>
-            <a href="#" class="nav-link px-0 text-secondary">@($"{Model.Year}.{Model.Month}")#</a>
+            <a asp-page="Index"
+               asp-route-filter="date"
+               asp-route-search="@Model.Year"
+               class="nav-link px-0 text-secondary">@($"{Model.Year}.{Model.Month}")#</a>
         </div>
         <div>
             @foreach (var t in Model.Tagline)
             {
-                <a class="btn btn-primary btn-sm rounded-pill px-3" href="#">
+                <a class="btn btn-primary btn-sm rounded-pill px-3"
+                   asp-page="Index"
+                   asp-route-filter="tag"
+                   asp-route-search="@t">
                     <i class="bi bi-tag-fill"></i>
                     @t
                 </a>

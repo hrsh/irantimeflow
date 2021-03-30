@@ -16,6 +16,16 @@ body {
     /*background-color: rgb(253,253,253)*/
 }
 
+.header {
+    text-decoration: none;
+    color: #000
+}
+
+    .header:hover {
+        color: #222;
+        text-decoration: none
+    }
+
 .timeline {
     border-left: 3px solid #204ecf;
     border-bottom-right-radius: 4px;
@@ -115,6 +125,7 @@ body {
     .timeline .event:after {
         left: -30.8px;
     }
+
     .rtl .timeline .event::after {
         left: 0;
         right: -30.8px;
@@ -155,3 +166,15 @@ body {
     padding: 0;
     line-height: 12px;
 }
+
+.social-list {
+    list-style: none;
+    text-align: center
+}
+
+
+    .social-list li {
+        display: inline-block;
+        padding-left: 7px;
+        padding-right: 7px
+    }

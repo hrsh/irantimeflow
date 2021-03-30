@@ -3,10 +3,12 @@ using AutoMapper.QueryableExtensions;
 using EFCoreSecondLevelCacheInterceptor;
 using IranTimeFlow.WebApp.DataContext;
 using IranTimeFlow.WebApp.Models;
+using IranTimeFlow.WebApp.PagedModel;
 using IranTimeFlow.WebApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +18,7 @@ namespace IranTimeFlow.WebApp.Persistance
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-        private readonly int _pageSize = 64;
+        private readonly int _pageSize = 32;
         private readonly int _cacheTime = 30; // <- int minutes
 
         public Repository(
@@ -86,6 +88,24 @@ namespace IranTimeFlow.WebApp.Persistance
             int SkipCount() => (pageIndex - 1) * _pageSize;
 
             return new() { Timelines = t };
+        }
+
+        public async Task<PagedList<TimelineViewModel>> GetLatestPagedAsync(
+            int pageIndex, 
+            Expression<Func<TimelineEntity, bool>> predicate,
+            CancellationToken ct = default)
+        {
+            var query = _context
+                            .Timelines
+                            .AsNoTracking()
+                            .Where(predicate)
+                            .OrderByDescending(a => a.Id)
+                            .ProjectTo<TimelineViewModel>(_mapper.ConfigurationProvider)
+                            .Cacheable(CacheExpirationMode.Absolute, TimeSpan.FromMinutes(_cacheTime));
+
+            var result = await query.AsPagedList(pageIndex, _pageSize, ct);
+
+            return result;
         }
 
         public Task UpdateAsync(TimelineEntity model, CancellationToken ct = default)
