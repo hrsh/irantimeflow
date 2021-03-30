@@ -1,8 +1,10 @@
 ﻿@page "/admin/index"
 @model IndexPage
-@using DNTPersianUtils.Core 
-@{ 
+@using DNTPersianUtils.Core
+@{
     ViewData["Title"] = "فهرست خبرها";
+    var np = Model.TimelineList.HasNextPage ? "" : "disabled";
+    var pp = Model.TimelineList.HasPreviousPage ? "" : "disabled";
 }
 
 <h1 class="mb-5">فهرست خبرها</h1>
@@ -34,7 +36,7 @@
                 <td>@t.Published</td>
                 <td class="text-right">
                     <a asp-page="Edit"
-                       asp-route-itemId="@t.UniqueId">ویرایش</a> | 
+                       asp-route-itemId="@t.UniqueId">ویرایش</a> |
                     <a asp-page="Delete"
                        asp-route-itemId="@t.UniqueId">حذف</a>
                 </td>
@@ -42,3 +44,18 @@
         }
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @np">
+            <a class="page-link"
+               asp-page="Index"
+               asp-route-pageIndex="@(Model.TimelineList.HasNextPage ? (Model.TimelineList.PageIndex + 1) : 1)"
+               tabindex="-1">اخبار قدیمی</a>
+        </li>
+        <li class="page-item @pp">
+            <a class="page-link"
+               asp-page="Index"
+               asp-route-pageIndex="@(Model.TimelineList.HasPreviousPage ? (Model.TimelineList.PageIndex - 1) : 1)">آخرین اخبار</a>
+        </li>
+    </ul>
+</nav>

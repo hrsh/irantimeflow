@@ -1,10 +1,13 @@
 ﻿@model TimelineViewModel
-
+@using DNTPersianUtils.Core
 <li class="event" data-date="@Model.DateRised" id="news-@Model.Id">
     <a href="#news-@Model.Id" class="event-anchor"><h3 class="fs-4">@Model.Title</h3></a>
+    <div class="text-muted">
+        @Model.RisedOn.ToFriendlyPersianDateTextify(appendHhMm: false)
+    </div>
     @if (!Model.Approved)
     {
-        <span class="btn btn-danger btn-sm rounded-pill px-4 mb-4">
+        <span class="btn btn-danger btn-sm rounded-pill px-4 my-4">
             تردید در درستی
         </span>
     }
@@ -12,23 +15,23 @@
     {
         if (User.IsInRole(IranTimeFlow.WebApp.Helpers.RoleNames.Admin))
         {
-<div>
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-        <a asp-page="Edit"
-           asp-area="Admin"
-           asp-route-itemId="@Model.UniqueId"
-           class="btn btn-primary">
-            <i class="bi bi-pencil-fill"></i>
-        </a>
-        <a asp-page="Delete"
-           asp-area="Admin"
-           asp-route-itemId="@Model.UniqueId"
-           class="btn btn-danger">
-            <i class="bi bi-trash"></i>
-        </a>
-    </div>
+            <div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <a asp-page="Edit"
+                       asp-area="Admin"
+                       asp-route-itemId="@Model.UniqueId"
+                       class="btn btn-primary">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a asp-page="Delete"
+                       asp-area="Admin"
+                       asp-route-itemId="@Model.UniqueId"
+                       class="btn btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
 
-</div>
+            </div>
         }
     }
     <p class="fs-5">
@@ -59,7 +62,7 @@
         <div>
             @foreach (var t in Model.Tagline)
             {
-                <a class="btn btn-primary btn-sm rounded-pill px-3"
+                <a class="btn btn-secondary btn-sm rounded-pill px-3"
                    asp-page="Index"
                    asp-route-filter="tag"
                    asp-route-search="@t">
