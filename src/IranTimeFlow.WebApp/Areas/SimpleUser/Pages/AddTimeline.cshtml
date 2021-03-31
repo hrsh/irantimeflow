@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <div class="alert alert-warning mb-5" role="alert">
+        <div class="alert alert-warning mb-2" role="alert">
             <h4 class="alert-heading">ثبت خبر جدید</h4>
             <p>
                 قبل از ثبت خبر لطفا به موارد زیر توجه بفرمایید:
@@ -24,6 +24,11 @@
                 در رد یا قبول اخبار دریافتی مختار است.
             </p>
         </div>
+        <div class="alert alert-primary mb-5" role="alert">
+            شما با شناسه
+            <b>@User.Identity.Name</b>
+            در حال ثبت خبر هستید.
+        </div>
         @if (!string.IsNullOrEmpty(Model.Message))
         {
             <div class="alert alert-@Model.Alert" role="alert">
@@ -38,7 +43,7 @@
             </div>
             <div class="col-12">
                 <label asp-for="InputModel.Content" class="form-label"></label>
-                <textarea class="form-control" asp-for="InputModel.Content" rows="10"></textarea>
+                <textarea class="form-control editorjs" asp-for="InputModel.Content" rows="10"></textarea>
                 <span class="text-danger samll" asp-validation-for="InputModel.Content"></span>
             </div>
             <div class="col-12">
@@ -66,5 +71,6 @@
             </div>
         </form>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-3">
+    </div>
 </div>
