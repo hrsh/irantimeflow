@@ -59,7 +59,17 @@ namespace IranTimeFlow.WebApp
         {
             services
             .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie();
+            .AddCookie()
+            .AddGoogle(cfg =>
+            {
+                cfg.ClientId = "";
+                cfg.ClientSecret = "";
+            })
+            .AddMicrosoftAccount(cfg =>
+            {
+                cfg.ClientId = "";
+                cfg.ClientSecret = "";
+            });
             services.AddIdentity<IdentityUser, IdentityRole>(cfg =>
             {
                 cfg.Password.RequireDigit = true;

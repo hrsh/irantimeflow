@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IranTimeFlow.WebApp.Pages
@@ -36,20 +35,30 @@ namespace IranTimeFlow.WebApp.Pages
             public bool RememberMe { get; set; }
         }
 
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
         public string Message { get; set; }
 
         [BindProperty]
         public LoginModel InputModel { get; set; }
 
-        public IActionResult OnGet()
+        public string ReturnUrl { get; set; }
+
+        public async Task OnGetAsync(string returnUrl = null)
         {
-            if (_signInManager.IsSignedIn(User))
-                return RedirectToPage("./Index");
-            return Page();
+            returnUrl ??= Url.Content("~/");
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
+            returnUrl ??= Url.Content("~/");
+
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             var user = await _userManager.FindByEmailAsync(InputModel.Email);
             if (user is null)
             {
@@ -58,12 +67,12 @@ namespace IranTimeFlow.WebApp.Pages
             }
 
             var result = await _signInManager.PasswordSignInAsync(
-                user.UserName, 
-                InputModel.Password, 
-                InputModel.RememberMe, 
+                user.UserName,
+                InputModel.Password,
+                InputModel.RememberMe,
                 true);
 
-            if (result.Succeeded) return RedirectToPage("Index");
+            if (result.Succeeded) return LocalRedirect(returnUrl);
 
             Message = "داده‌های ارسال شده معتبر نیستند!";
             return Page();
