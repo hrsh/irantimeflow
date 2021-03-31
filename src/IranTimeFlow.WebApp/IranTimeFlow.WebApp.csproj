@@ -5,6 +5,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Pages\Login.cshtml~RF3c34acc6.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DNTPersianUtils.Core" Version="4.0.0" />
 		<PackageReference Include="Figgle" Version="0.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.4" />

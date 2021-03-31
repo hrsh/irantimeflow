@@ -59,7 +59,7 @@ namespace IranTimeFlow.WebApp.Pages
 
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
@@ -91,14 +91,17 @@ namespace IranTimeFlow.WebApp.Pages
                     {
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };
+                    return await SetupExternalLoginAsync(Input.Email, returnUrl);
                 }
                 return Page();
             }
         }
 
-        public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
+        private async Task<IActionResult> SetupExternalLoginAsync(
+            string email,
+            string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
@@ -106,46 +109,33 @@ namespace IranTimeFlow.WebApp.Pages
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
-            if (ModelState.IsValid)
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is not null)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                await _signInManager.SignInAsync(user, false, info.LoginProvider);
+                return LocalRedirect(returnUrl);
+            }
 
-                var result = await _userManager.CreateAsync(user);
+            user = new IdentityUser
+            {
+                UserName = email,
+                Email = email,
+                EmailConfirmed = true,
+                LockoutEnabled = true
+            };
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddLoginAsync(user, info);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
-                    {
-
-                        var userId = await _userManager.GetUserIdAsync(user);
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
-                            pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code },
-                            protocol: Request.Scheme);
-
-                        await _userManager.AddToRoleAsync(user, RoleNames.SimpleUser);
-                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                        {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
-                        }
-                        
-                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-
-                        return LocalRedirect(returnUrl);
-                    }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    await _userManager.AddToRoleAsync(user, RoleNames.SimpleUser);
+                    await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                    return LocalRedirect(returnUrl);
                 }
             }
 
-            ProviderDisplayName = info.ProviderDisplayName;
-            ReturnUrl = returnUrl;
-            return Page();
+            return RedirectToPage("./Login");
         }
     }
 }

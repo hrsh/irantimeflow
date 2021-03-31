@@ -66,7 +66,7 @@ namespace IranTimeFlow.WebApp.Areas.SimpleUser.Pages
 
             Message = Consts.DefaultSuccessMessage;
             Alert = "success";
-            return RedirectToPage();
+            return RedirectToPage("Index");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/admin/index"
+﻿@page "/users/timeline/index"
 @model IndexPage
 @using DNTPersianUtils.Core
 @{
@@ -8,7 +8,7 @@
 }
 
 <h1 class="mb-5">فهرست خبرها</h1>
-<a asp-page="AddTimeline" asp-area="SimpleUser" class="btn btn-primary mb-4">ثبت جدید</a>
+<a asp-page="AddTimeline" class="btn btn-primary mb-4">ثبت جدید</a>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">خانه</a></li>
@@ -17,13 +17,12 @@
 </nav>
 <table class="table">
     <thead class="table-light">
-        <tr class="py-3">
+        <tr>
             <th scope="col">#</th>
             <th scope="col">عنوان</th>
             <th scope="col">تاریخ</th>
             <th scope="col">تایید</th>
             <th scope="col">انتشار</th>
-            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -31,19 +30,10 @@
         {
             <tr>
                 <th scope="row">@t.Id</th>
-                <td>
-                    <b>@t.Title</b>
-                    <div><a href="mailto:@t.CreatedByEmail">@t.CreatedByEmail</a></div>
-                </td>
+                <td>@t.Title</td>
                 <td>@t.RisedOn.ToPersianYearMonthDay(DateTimeOffsetPart.IranLocalDateTime)</td>
                 <td>@t.Approved</td>
                 <td>@t.Published</td>
-                <td class="text-right">
-                    <a asp-page="Edit"
-                       asp-route-itemId="@t.UniqueId">ویرایش</a> |
-                    <a asp-page="Delete"
-                       asp-route-itemId="@t.UniqueId">حذف</a>
-                </td>
             </tr>
         }
     </tbody>

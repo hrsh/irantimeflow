@@ -1,135 +1,106 @@
 ﻿@page "/account/u/login"
 @model LoginPage
+@using IranTimeFlow.WebApp.Helpers
 
 @{
     ViewData["Title"] = "ورود";
 }
 
-@*<div class="row justify-content-center">
-    <div class="col-lg-4"></div>
+<div class="row justify-content-center mt-5">
     <div class="col-lg-4">
-        @if (!string.IsNullOrEmpty(Model.Message))
-        {
-            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">رویداد نگار ایران</strong>
-                    <small></small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    @Model.Message
-                </div>
-            </div>
-        }
-        <form class="card" method="post" id="login">
-            <div class="card-body">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control"
-                           asp-for="InputModel.Email"
-                           placeholder="name@example.com">
-                    <label asp-for="InputModel.Email">آدرس ایمیل</label>
-                    <span class="text-danger small" asp-validation-for="InputModel.Email"></span>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control"
-                           asp-for="InputModel.Password"
-                           placeholder="***">
-                    <label asp-for="InputModel.Password">کلمه عبور</label>
-                    <span class="text-danger small" asp-validation-for="InputModel.Password"></span>
-                </div>
-                <div class="form-check form-switch pt-4">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">مرا به یاد داشته باش</label>
-                </div>
-            </div>
-            <div class="card-footer bg-light py-3">
-                <button type="submit"
-                        class="btn btn-primary"
-                        id="btnGo"
-                        onclick="CustomSubmit('login', this)">
-                    ورود
-                </button>
-                <a asp-page="Index" class="btn btn-link">انصراف</a>
-            </div>
-        </form>
-    </div>
-    <div class="col-lg-4"></div>
-</div>*@
-
-<div class="row">
-    <div class="col-md-4">
         <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="InputModel.Email"></label>
-                    <input asp-for="InputModel.Email" class="form-control" />
-                    <span asp-validation-for="InputModel.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="InputModel.Password"></label>
-                    <input asp-for="InputModel.Password" class="form-control" />
-                    <span asp-validation-for="InputModel.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="InputModel.RememberMe">
-                            <input asp-for="InputModel.RememberMe" />
-                            @Html.DisplayNameFor(m => m.InputModel.RememberMe)
-                        </label>
+            <h4>ورود با حساب کاربری</h4>
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">رویداد نگار ایران</strong>
+                        <small></small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        @Model.Message
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+            }
+            <form class="card" method="post" id="login">
+                <div class="card-body">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control"
+                               asp-for="InputModel.Email"
+                               placeholder="name@example.com">
+                        <label asp-for="InputModel.Email">آدرس ایمیل</label>
+                        <span class="text-danger small" asp-validation-for="InputModel.Email"></span>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control"
+                               asp-for="InputModel.Password"
+                               placeholder="***">
+                        <label asp-for="InputModel.Password">کلمه عبور</label>
+                        <span class="text-danger small" asp-validation-for="InputModel.Password"></span>
+                    </div>
+                    <div class="form-check form-switch pt-4">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">مرا به یاد داشته باش</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                <div class="card-footer bg-light py-3">
+                    <button type="submit"
+                            class="btn btn-primary"
+                            id="btnGo"
+                            onclick="CustomSubmit('login', this)">
+                        ورود
+                    </button>
+                    <a asp-page="Index" class="btn btn-link">انصراف</a>
                 </div>
             </form>
         </section>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-lg-4">
         <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" 
-                          asp-page="./ExternalLogin" 
-                          asp-route-returnUrl="@Model.ReturnUrl" 
-                          method="post" 
-                          class="form-horizontal">
-                        <div>
+            <h4>ورود با سرویس‌دهنده دیگر</h4>
+            <div class="card">
+                <div class="card-body">
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div>
+                                <p>
+                                    There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                    for details on setting up this ASP.NET application to support logging in via external services.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
                             <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
+                                اگر در هر کدام از سرویس‌های زیر حساب کاربری دارید، 
+                                می‌توانید با استفاده از آن، وارد شوید.
                             </p>
-                        </div>
-                    </form>
-                }
-            }
+                            <form id="external-account"
+                                  asp-page="./ExternalLogin"
+                                  asp-route-returnUrl="@Model.ReturnUrl"
+                                  method="post"
+                                  class="form-horizontal">
+                                <div>
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins)
+                                        {
+                                            <button type="submit" 
+                                                    class="btn btn-primary" 
+                                                    name="provider" 
+                                                    value="@provider.Name" 
+                                                    title="ورود با استفاده از حساب در @provider.DisplayName.ToProviderName()">
+                                                @provider.DisplayName.ToProviderName()
+                                            </button>
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    }
+                </div>
+            </div>
         </section>
     </div>
 </div>

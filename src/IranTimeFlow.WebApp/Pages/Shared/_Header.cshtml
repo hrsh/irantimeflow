@@ -16,11 +16,15 @@
     </a>
     @if (User.Identity.IsAuthenticated)
     {
+        if (User.IsInRole("Admin"))
+        {
+            <a asp-page="Index" asp-area="Admin" class="nav-link">اخبار</a>
+        }
         <form method="post" asp-page="Logout" id="logout"></form>
         <a href="javascript:void(0)"
            onclick="$('#logout').submit()"
            class="nav-link">
-        خروج
+            خروج
         </a>
     }
     <a href="https://github.com/hrsh/irantimeflow"

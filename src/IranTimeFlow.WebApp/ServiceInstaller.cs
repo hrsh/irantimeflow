@@ -62,13 +62,13 @@ namespace IranTimeFlow.WebApp
             .AddCookie()
             .AddGoogle(cfg =>
             {
-                cfg.ClientId = "";
-                cfg.ClientSecret = "";
+                cfg.ClientId = "***.apps.googleusercontent.com";
+                cfg.ClientSecret = "***";
             })
             .AddMicrosoftAccount(cfg =>
             {
-                cfg.ClientId = "";
-                cfg.ClientSecret = "";
+                cfg.ClientId = "***";
+                cfg.ClientSecret = "***";
             });
             services.AddIdentity<IdentityUser, IdentityRole>(cfg =>
             {
