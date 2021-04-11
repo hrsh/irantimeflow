@@ -60,7 +60,9 @@ namespace IranTimeFlow.WebApp.Migrations
                     Month = table.Column<int>(type: "int", nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Approved = table.Column<bool>(type: "bit", nullable: false),
-                    Resources = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Published = table.Column<bool>(type: "bit", nullable: false),
+                    Resources = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedByEmail = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -15,16 +15,16 @@ namespace IranTimeFlow.WebApp.DataContext
 
             var user = new IdentityUser
             {
-                Email = "user@email.com",
+                Email = "hrshojaie@gmail.com",
                 EmailConfirmed = true,
-                PhoneNumber = "09000000000",
+                PhoneNumber = "09173148953",
                 AccessFailedCount = 0,
                 LockoutEnabled = true,
                 UserName = "hrshojaie",
                 PhoneNumberConfirmed = true
             };
 
-            await userManager.CreateAsync(user, "T#mpPa$$w0rd");
+            await userManager.CreateAsync(user, "Mazdak@12345");
 
             var roles = ClassProperties
                 .GetFields(typeof(RoleNames))

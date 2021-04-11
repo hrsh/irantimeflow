@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IranTimeFlow.WebApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210329181827_AddPublishedField")]
-    partial class AddPublishedField
+    [Migration("20210410145058_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,9 @@ namespace IranTimeFlow.WebApp.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Month")
