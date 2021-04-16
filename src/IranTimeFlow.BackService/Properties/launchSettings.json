@@ -1,0 +1,17 @@
+﻿{
+  "profiles": {
+    "IranTimeFlow.BackService": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DbParam_Host": "mssql.irandailytime.ir",
+        "DbParam_Password": "TWF6ZGFrQDg5NTNeMTA4MQ==",
+        "DbParam_Username": "irandailytime",
+        "DbParam_Database": "irandailytime"
+      }
+    }
+  }
+}
