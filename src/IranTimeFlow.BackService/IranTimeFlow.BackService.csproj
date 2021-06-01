@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>e8fadc3b-d4f6-4a87-b277-ac1a943b17cc</UserSecretsId>
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="DNTPersianUtils.Core" Version="4.0.0" />

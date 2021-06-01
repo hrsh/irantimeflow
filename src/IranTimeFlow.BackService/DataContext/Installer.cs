@@ -18,11 +18,11 @@ namespace IranTimeFlow.BackService.DataContext
             IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment)
         {
-            var connectionstring = configuration.MakeConnectionString();
+            //var connectionstring = configuration.MakeConnectionString();
             services.AddDbContextPool<AppDbContext>((serviceProvider, optionBuilder) =>
             {
                 optionBuilder
-                .UseSqlServer(connectionstring)
+                .UseSqlServer(configuration.GetConnectionString("default"))
                 .UseLazyLoadingProxies()
                 .EnableSensitiveDataLogging(webHostEnvironment.IsDevelopment())
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);

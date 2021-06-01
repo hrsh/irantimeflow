@@ -67,10 +67,10 @@ namespace IranTimeFlow.WebApp.Pages
             }
 
             var result = await _signInManager.PasswordSignInAsync(
-                user.UserName,
-                InputModel.Password,
-                InputModel.RememberMe,
-                true);
+                userName: user.UserName,
+                password: InputModel.Password,
+                isPersistent: InputModel.RememberMe,
+                lockoutOnFailure: true);
 
             if (result.Succeeded) return LocalRedirect(returnUrl);
 

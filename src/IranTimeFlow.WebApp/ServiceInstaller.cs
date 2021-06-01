@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace IranTimeFlow.WebApp
 {
@@ -57,19 +58,6 @@ namespace IranTimeFlow.WebApp
 
         private static void AddCustomIdentity(this IServiceCollection services)
         {
-            services
-            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie()
-            .AddGoogle(cfg =>
-            {
-                cfg.ClientId = "***.apps.googleusercontent.com";
-                cfg.ClientSecret = "***";
-            })
-            .AddMicrosoftAccount(cfg =>
-            {
-                cfg.ClientId = "***";
-                cfg.ClientSecret = "***";
-            });
             services.AddIdentity<IdentityUser, IdentityRole>(cfg =>
             {
                 cfg.Password.RequireDigit = true;
@@ -79,14 +67,42 @@ namespace IranTimeFlow.WebApp
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = new PathString("/account/u/login");
+                cfg.Cookie.HttpOnly = true;
+                cfg.Cookie.IsEssential = true;
+                cfg.Cookie.Name = ".irantimeflow.app.d";
+                cfg.Cookie.SameSite = SameSiteMode.Lax;
+                cfg.SlidingExpiration = true;
+                cfg.ExpireTimeSpan = TimeSpan.FromDays(14);
+                cfg.Cookie.MaxAge = TimeSpan.FromDays(14);
+            });
+
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromMinutes(5);
+                options.OnRefreshingPrincipal = principalContext => Task.CompletedTask;
+            });
+
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie()
+                .AddGoogle(cfg =>
+                {
+                    cfg.ClientId = "***.apps.googleusercontent.com";
+                    cfg.ClientSecret = "***";
+                })
+                .AddMicrosoftAccount(cfg =>
+                {
+                    cfg.ClientId = "***";
+                    cfg.ClientSecret = "***";
+                });
+
             services.AddAuthorization(cfg =>
             {
                 cfg.AddCustomPolicies();
-            });
-            services.ConfigureApplicationCookie(opt =>
-            {
-                opt.LoginPath = new PathString("/account/u/login");
-                opt.Cookie.Name = "_auth";
             });
         }
     }
