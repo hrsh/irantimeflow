@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "خانه";
+    var np = Model.PageIndex > 1 ? "" : "disabled";
+    //var pp = Model.TimelineList.HasPreviousPage ? "" : "disabled";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @await Html.PartialAsync("_Header")
+        @await Html.PartialAsync("TimelineList", Model.TimelineList)
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center pagination-lg">
+                <li class="page-item @np">
+                    <a class="page-link"
+                       asp-page="Index"
+                       asp-route-pageIndex="@(Model.PageIndex <= 1 ? 1 : Model.PageIndex - 1)"
+                       asp-route-filter="@Model.Filter"
+                       asp-route-search="@Model.Search"
+                       tabindex="-1">اخبار قدیمی</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-page="Index"
+                       asp-route-pageIndex="@(Model.PageIndex + 1)"
+                       asp-route-filter="@Model.Filter"
+                       asp-route-search="@Model.Search">آخرین اخبار</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

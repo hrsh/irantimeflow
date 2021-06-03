@@ -1,14 +1,14 @@
-﻿@page "/users/timeline/index"
-@model IndexPage
+﻿@page "/timeline"
+@model IndexModel
 @using DNTPersianUtils.Core
 @{
     ViewData["Title"] = "فهرست خبرها";
-    var np = Model.TimelineList.HasNextPage ? "" : "disabled";
-    var pp = Model.TimelineList.HasPreviousPage ? "" : "disabled";
+    var np = Model.PageIndex > 1 ? "" : "disabled";
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <h1 class="mb-5">فهرست خبرها</h1>
-<a asp-page="AddTimeline" class="btn btn-primary mb-4">ثبت جدید</a>
+<a asp-page="Add" class="btn btn-primary mb-4">ثبت جدید</a>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">خانه</a></li>
@@ -36,10 +36,13 @@
             <td>@t.Approved</td>
             <td>@t.Published</td>
             <td class="text-right">
-                <a asp-page="Edit"
-                   asp-route-itemId="@t.UniqueId">ویرایش</a> |
-                <a asp-page="Delete"
-                   asp-route-itemId="@t.UniqueId">حذف</a>
+                @if(isAdmin)
+                {
+                    <a asp-page="Edit"
+                   asp-route-itemId="@t.UniqueId">ویرایش</a> 
+                    <a asp-page="Delete"
+                       asp-route-itemId="@t.UniqueId">حذف</a>
+                }
             </td>
         </tr>
         }
@@ -50,13 +53,13 @@
         <li class="page-item @np">
             <a class="page-link"
                asp-page="Index"
-               asp-route-pageIndex="@(Model.TimelineList.HasNextPage ? (Model.TimelineList.PageIndex + 1) : 1)"
+               asp-route-pageIndex="@(Model.PageIndex <= 1 ? 1 : Model.PageIndex - 1)"
                tabindex="-1">اخبار قدیمی</a>
         </li>
-        <li class="page-item @pp">
+        <li class="page-item">
             <a class="page-link"
                asp-page="Index"
-               asp-route-pageIndex="@(Model.TimelineList.HasPreviousPage ? (Model.TimelineList.PageIndex - 1) : 1)">آخرین اخبار</a>
+               asp-route-pageIndex="@(Model.PageIndex + 1)">آخرین اخبار</a>
         </li>
     </ul>
 </nav>
