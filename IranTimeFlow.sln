@@ -5,8 +5,6 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8E88C63A-63F8-4A59-AFBC-670B3C64B66B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IranTimeFlow.WebApp", "src\IranTimeFlow.WebApp\IranTimeFlow.WebApp.csproj", "{514B7C37-99AB-4804-AB7A-53B0D7A412A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Irantimeline", "src\Irantimeline\Irantimeline.csproj", "{88E41802-BA85-43D5-B432-8E4BFE6A743E}"
 EndProject
 Global
@@ -19,18 +17,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|x64.Build.0 = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Debug|x86.Build.0 = Debug|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|x64.ActiveCfg = Release|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|x64.Build.0 = Release|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|x86.ActiveCfg = Release|Any CPU
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8}.Release|x86.Build.0 = Release|Any CPU
 		{88E41802-BA85-43D5-B432-8E4BFE6A743E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88E41802-BA85-43D5-B432-8E4BFE6A743E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E41802-BA85-43D5-B432-8E4BFE6A743E}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -48,7 +34,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{514B7C37-99AB-4804-AB7A-53B0D7A412A8} = {8E88C63A-63F8-4A59-AFBC-670B3C64B66B}
 		{88E41802-BA85-43D5-B432-8E4BFE6A743E} = {8E88C63A-63F8-4A59-AFBC-670B3C64B66B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
